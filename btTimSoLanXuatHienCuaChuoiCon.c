@@ -1,87 +1,95 @@
 #include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
-typedef struct {
+typedef struct 
+{
     char *ptr;
-    uint8_t  length;
-    uint8_t  quantity;
+    int length;
     bool status;
+    int numbers;
 }words;
 
-uint8_t  sizeStr (char *str ){
-    uint8_t  size = 1;
+int sizeOfString (char *str){
+    int size = 1 ;
     while (*str != '\0'){
-        if(*str == ' ')   size++;
-
+        if (*str == ' '){
+            size++;
+        }
         str++;
     }
     return size;
 }
 
-words* splitString (char *str, uint8_t  size){
-    words *array = (words*)malloc(sizeof(words)*size);
-    uint8_t  index = 0;
-    uint8_t  count = 0;
-array[index].ptr = str ;
-while(*str != '\0'){
-    if(*str == ' '){
-        if(*(str-1) == ',') count--;
-        array[index].length = count;
-        count = 0;
-        str++;
-        index++;
-        array[index].ptr = str;
+words* SplitString(char *str, int size){
+    words *array = (words* )malloc(sizeof(words)*size);
+    int index = 0;
+    int count = 0;
+    array[index].ptr = str;
+    while (*str != '\0'){
+        if (*str == ' '){
+            if(*(str-1) == ',') count--;
+            array[index].length = count;
+            count = 0;
+            str++;
+            index++;
+            array[index].ptr = str;
+        }
+        else {
+            str++;
+            count++;
+        }
     }
-    else {
-        str++;
-        count++;
-    }  
-}
     array[index].length = count;
     return array;
 }
 
-void findName(words *array, uint8_t  size)
+
+void findString (words *array, int size)
 {
-    for (uint8_t  i = 0; i < size; i++)
-    
-    {
-        uint8_t  count = 0;
-        for(uint8_t  j=0; j<size ; j++){
-            uint8_t  i_ptr=0;
-            while (array[i].ptr[i_ptr] == array[j].ptr[i_ptr]){
-                i_ptr++;
-                if(array[i].length == i_ptr && array[j].length == i_ptr){
+    for(int i=0; i<size; i++){
+        int count = 0;
+        for (int j = 0; j<size; j++)
+        {
+            int iptr = 0;
+            while (array[i].ptr[iptr] == array[j].ptr[iptr]) 
+            {
+                iptr++;
+                if (array[i].length == iptr && array[j].length == iptr)
+                {
                     count++;
                     if(count>=2) array[j].status = false;
                     else array[j].status = true;
                     break;
                 }
             }
-                }
-           array[i].quantity = count;
-
         }
+        array[i].numbers = count;
+        // printf("%d\n",array[i].numbers);
     }
+}
 
-void printName(words *array, uint8_t   size){
-    for (uint8_t i=0; i<size; i++){
-        if (array[i].status == true){
-            for (uint8_t   j=0; j< array[i].length; j++){
-            printf("%c",array[i].ptr[j]);
-        }
-        printf("\t:%d\n",array[i].quantity);
+
+
+void printString (words *array, int size){
+    for (int i=0; i<size; i++){
+        if(array[i].status == true){
+            for (int j = 0; j < array[i].length; j++)
+            {
+                printf("%c",array[i].ptr[j]);
+            }
+            printf("\t:%d\n",array[i].numbers);
         }
     }
 }
- 
-uint8_t main(){
-char string[] = "nam hoang bao, nam hoang hoang, bao bao yen, anh bao yen";
-uint8_t size = sizeStr(string);
-words *a = splitString(string,size);
-findName(a,size);
-printName(a,size);
-return 0;
+
+int main()
+{
+    char string[] = "nam hoang bao, nam hoang hoang, bao bao yen, anh bao yen";
+    int size = sizeOfString(string);
+    words *a = SplitString(string, size);
+    findString (a, size);
+    printString(a, size);
+    return 0;
 }
