@@ -59,7 +59,7 @@ int SoNgayTrongNam(int nYear)
             return 365;
         }
 
-//ham tinh so ngay tu ngay 01/01/0001 -> 01/01/nYear 
+//ham tinh so ngay tu ngay 01/01/0001 -> 31/12/nYear-1 
 int SoNgayTruocNam(int nYear)
         {
             int TongSoNgayTruoc = 0;
@@ -100,5 +100,5 @@ void NgayTrongTuan(int nYear, int nMonth, int nDay)
         }
 
 int main(){
-   NgayTrongTuan(2023, 9, 7);
+   NgayTrongTuan(2023, 9, 11);
 }
