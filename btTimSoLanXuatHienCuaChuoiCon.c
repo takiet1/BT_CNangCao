@@ -49,14 +49,14 @@ void findName(words *array, uint8_t  size)
     
     {
         uint8_t  count = 0;
-        for(uint8_t  j=0; i<size ; j++){
+        for(uint8_t  j=0; j<size ; j++){
             uint8_t  i_ptr=0;
-            while (array[i].ptr[i_ptr] == array[i].ptr[i_ptr]){
+            while (array[i].ptr[i_ptr] == array[j].ptr[i_ptr]){
                 i_ptr++;
                 if(array[i].length == i_ptr && array[j].length == i_ptr){
                     count++;
-                    if(count>=2) array[j].status = 0;
-                    else array[j].status = 1;
+                    if(count>=2) array[j].status = false;
+                    else array[j].status = true;
                     break;
                 }
             }
@@ -68,8 +68,8 @@ void findName(words *array, uint8_t  size)
 
 void printName(words *array, uint8_t   size){
     for (uint8_t i=0; i<size; i++){
-        if (array[i].status == 1){
-            for (uint8_t   j=0; j< size; j++){
+        if (array[i].status == true){
+            for (uint8_t   j=0; j< array[i].length; j++){
             printf("%c",array[i].ptr[j]);
         }
         printf("\t:%d\n",array[i].quantity);
@@ -78,7 +78,7 @@ void printName(words *array, uint8_t   size){
 }
  
 uint8_t main(){
-char string[]="nam hoang bao, nam hoang hoang";
+char string[] = "nam hoang bao, nam hoang hoang, bao bao yen, anh bao yen";
 uint8_t size = sizeStr(string);
 words *a = splitString(string,size);
 findName(a,size);
