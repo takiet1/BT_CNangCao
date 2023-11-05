@@ -11,7 +11,7 @@ private:
     Position currentPos;            //Vi tri bat dau
     VehicleType VEHICLE_TYPE;       //Loai phương tiện
 public:
-    ParkingSlot &destination;       //Vi trí đích đến
+    ParkingSlot &destination;       
     
     NavigationSystem(ParkingSlot& destination, 
             const vector<vector<ParkingSlot>>& parkingSlots, 
